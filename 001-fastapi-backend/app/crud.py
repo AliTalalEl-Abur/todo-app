@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app.models import ToDo
-from app.schemas import ToDoRequest
+from .models import ToDo
+from .schemas import ToDoRequest
 
 def create_todo(db: Session, todo: ToDoRequest):
     db_todo = ToDo(name=todo.name, completed=todo.completed)
