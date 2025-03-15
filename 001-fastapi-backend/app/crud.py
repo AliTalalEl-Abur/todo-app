@@ -1,9 +1,8 @@
 from sqlalchemy.orm import Session
-from app import models
 from app.models import ToDo
-from app import schemas
+from app.schemas import ToDoRequest
 
-def create_todo(db: Session, todo: schemas.ToDoRequest):
+def create_todo(db: Session, todo: ToDoRequest):
     db_todo = ToDo(name=todo.name, completed=todo.completed)
     db.add(db_todo)
     db.commit()
@@ -12,26 +11,26 @@ def create_todo(db: Session, todo: schemas.ToDoRequest):
 
 def read_todos(db: Session, completed: bool):
     if completed is None:
-        return db.query(models.ToDo).all()
+        return db.query(ToDo).all()
     else:
-        return db.query(models.ToDo).filter(models.ToDo.completed == completed).all()
+        return db.query(ToDo).filter(ToDo.completed == completed).all()
 
 def read_todo(db: Session, id: int):
-    return db.query(models.ToDo).filter(models.ToDo.id == id).first()
+    return db.query(ToDo).filter(ToDo.id == id).first()
 
-def update_todo(db: Session, id: int, todo: schemas.ToDoRequest):
-    db_todo = db.query(models.ToDo).filter(models.ToDo.id == id).first()
+def update_todo(db: Session, id: int, todo: ToDoRequest):
+    db_todo = db.query(ToDo).filter(ToDo.id == id).first()
     if db_todo is None:
         return None
-    db.query(models.ToDo).filter(models.ToDo.id == id).update({'name': todo.name, 'completed': todo.completed})
+    db.query(ToDo).filter(ToDo.id == id).update({'name': todo.name, 'completed': todo.completed})
     db.commit()
     db.refresh(db_todo)
     return db_todo
 
 def delete_todo(db: Session, id: int):
-    db_todo = db.query(models.ToDo).filter(models.ToDo.id == id).first()
+    db_todo = db.query(ToDo).filter(ToDo.id == id).first()
     if db_todo is None:
         return None
-    db.query(models.ToDo).filter(models.ToDo.id == id).delete()
+    db.query(ToDo).filter(ToDo.id == id).delete()
     db.commit()
     return True
