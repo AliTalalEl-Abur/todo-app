@@ -1,6 +1,21 @@
 services:
   - type: web
     name: fastapi-backend
-    runtime: python
+    env: python
     buildCommand: pip install -r 001-fastapi-backend/requirements.txt
     startCommand: uvicorn 001-fastapi-backend.app.main:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: DATABASE_HOST
+        value: localhost
+      - key: DATABASE_NAME
+        value: full_stack_todo_app
+      - key: DATABASE_USER
+        value: user082724
+      - key: DATABASE_PASSWORD
+        value: pass082724
+      - key: DATABASE_PORT
+        value: 5432
+      - key: APP_NAME
+        value: Full Stack To Do App
+      - key: PYTHONPATH
+        value: .
