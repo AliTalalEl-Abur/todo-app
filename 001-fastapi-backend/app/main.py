@@ -1,16 +1,14 @@
 from functools import lru_cache
 from typing import Union
-
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.responses import PlainTextResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from .database import SessionLocal, engine
-from .models import Base
-from .routers import todos
-from . import config
-
+from app.database import SessionLocal, engine
+from app.models import Base
+from app.routers import todos
+from app import config
 
 # Crear la base de datos
 Base.metadata.create_all(bind=engine)
