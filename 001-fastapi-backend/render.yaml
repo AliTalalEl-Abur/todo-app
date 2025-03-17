@@ -19,4 +19,4 @@ services:
       - key: APP_NAME
         value: Full Stack To Do App
       - key: PYTHONPATH
-        value: "/opt/render/project/src/001-fastapi-backend"
+        value: /opt/render/project/src/001-fastapi-backend
